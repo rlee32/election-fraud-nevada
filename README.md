@@ -11,7 +11,8 @@ Requires python3.
 1. Obtain voter list. See Data Source.
 2. Move and rename the eligible voter list file to `./data/voters.csv`
 3. Move and rename the voter history file to `./data/votes.csv`
-4. Plot turnout vs. age by running: `./plot_turnout_by_age.py`
+4. Plot turnout vs. age for all counties by running: `./plot_turnout_by_age.py`
+    You can also plot just one county by running: `./plot_turnout_by_age.py COUNTY_NAME`, e.g. `./plot_turnout_by_age.py "Carson City"`
 
 ## Data source
 

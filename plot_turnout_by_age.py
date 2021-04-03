@@ -168,17 +168,51 @@ def plot_age_distribution(voters: Dict[int, int], votes: Dict[int, int], color: 
     else:
         plt.plot([x for x in ages if voters[x] > MINIMUM_REGISTERED_VOTERS], [votes[x] / voters[x] for x in ages if voters[x] > MINIMUM_REGISTERED_VOTERS])
 
+def plot_votes(voters: Dict[int, int], votes: Dict[int, int]):
+    """'votes' and 'voters' map age to number of votes or registered voters. """
+    vote_ages = set()
+    for age in votes:
+        vote_ages.add(age)
+    voter_ages = set()
+    for age in voters:
+        voter_ages.add(age)
+    ages = set()
+    for age in voter_ages:
+        if age in vote_ages:
+            ages.add(age)
+    ages = list(ages)
+    ages.sort()
+    total = sum([voters[x] for x in ages])
+    print(f'\t{total} registered voters')
+    #plt.plot(ages, [voters[x] for x in ages])
+    #plt.plot(ages, [votes[x] for x in ages])
+    plt.plot(ages, [votes[x] / voters[x] for x in ages])
+
+import sys
+
 if __name__ == '__main__':
+    plot_county = None
+    if len(sys.argv) > 1:
+        plot_county = sys.argv[1]
     voters = read_voters(VOTER_FILE)
     votes = read_votes(VOTE_FILE)
     vote_count = organize_votes(voters, votes)
     voter_count = organize_voters(voters)
-    for county in voter_count:
-        print(f'plotting {county} county')
-        plot_age_distribution(voter_count[county], vote_count[county])
-    plt.xlabel(f'Age (less than {MINIMUM_REGISTERED_VOTERS} registered voters are hidden)')
-    plt.ylabel('Voter turnout (votes / registered voters)')
-    plt.title(f'Oklahoma Voter Turnout vs. Age ({len(voter_count)} of {len(voter_count)} counties; each line = 1 county)')
-    plt.show()
+    if plot_county is None:
+        for county in voter_count:
+            print(f'plotting {county} county')
+            plot_age_distribution(voter_count[county], vote_count[county])
+
+        plt.xlabel(f'Age (less than {MINIMUM_REGISTERED_VOTERS} registered voters are hidden)')
+        plt.ylabel('Voter turnout (votes / registered voters)')
+        plt.title(f'Oklahoma Voter Turnout vs. Age ({len(voter_count)} of {len(voter_count)} counties; each line = 1 county)')
+        plt.show()
+    else:
+        plot_votes(voter_count[plot_county], vote_count[plot_county])
+        plt.xlabel(f'Age')
+        plt.ylabel('Votes or Voters')
+        plt.title(f'Nevada Votes and Voters vs. Age')
+        plt.show()
+
 
 
