@@ -2,6 +2,12 @@
 
 This checks for patterns between voter turnout and age in Nevada in the 2020 General Presidential Election.
 
+## Results
+
+The outlier with 90%+ turnout over all age groups is White Pine county.
+
+![alt text](plots/2020.png)
+
 ## Setup
 
 Requires python3.

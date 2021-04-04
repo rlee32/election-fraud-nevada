@@ -186,7 +186,8 @@ def plot_votes(voters: Dict[int, int], votes: Dict[int, int]):
     print(f'\t{total} registered voters')
     #plt.plot(ages, [voters[x] for x in ages])
     #plt.plot(ages, [votes[x] for x in ages])
-    plt.plot(ages, [votes[x] / voters[x] for x in ages])
+    overall_turnout = sum([votes[x] for x in ages]) / total
+    plt.plot(ages, [votes[x] / voters[x] / overall_turnout for x in ages])
 
 import sys
 
@@ -204,8 +205,8 @@ if __name__ == '__main__':
             plot_age_distribution(voter_count[county], vote_count[county])
 
         plt.xlabel(f'Age (less than {MINIMUM_REGISTERED_VOTERS} registered voters are hidden)')
-        plt.ylabel('Voter turnout (votes / registered voters)')
-        plt.title(f'Oklahoma Voter Turnout vs. Age ({len(voter_count)} of {len(voter_count)} counties; each line = 1 county)')
+        plt.ylabel('Normalized voter turnout (votes / registered voters / overall turnout)')
+        plt.title(f'Oklahoma Normalized Voter Turnout vs. Age ({len(voter_count)} of {len(voter_count)} counties; each line = 1 county)')
         plt.show()
     else:
         plot_votes(voter_count[plot_county], vote_count[plot_county])
