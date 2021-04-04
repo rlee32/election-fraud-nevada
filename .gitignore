@@ -2,3 +2,4 @@
 data/*
 *.swp
 .DS_Store
+._*.*
