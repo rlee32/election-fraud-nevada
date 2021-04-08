@@ -4,7 +4,7 @@ This checks for patterns between voter turnout and age in Nevada in the 2020 Gen
 
 ## Results
 
-The outlier with 90%+ turnout over all age groups is White Pine county. The 2020 voter roll is used for all plots.
+The outlier with ~0.9 normalized turnout over all age groups is White Pine county. The 2020 voter roll is used for all plots.
 
 ![alt text](plots/2020.png)
 ![alt text](plots/2016.png)
